@@ -1,73 +1,194 @@
-# React + TypeScript + Vite
+# SAMUDERA Frontend  
+## Sistem Analisis dan Monitoring Data Perikanan dan Kelautan Provinsi Jawa Timur  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Slogan:** *"Lautnya Luas, Datanya Jelas – SAMUDERA, Solusi Cerdas."*
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📋 Deskripsi
 
-## React Compiler
+Frontend aplikasi **SAMUDERA** dibangun menggunakan **React.js + TypeScript** dengan antarmuka modern dan interaktif untuk visualisasi data statistik kelautan dan perikanan di Dinas Kelautan dan Perikanan (DKP) Provinsi Jawa Timur.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Fitur Utama
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🏠 Landing Page
+- 6 kartu statistik real-time (Tangkap, Budidaya, KPP, Pengolahan, Ekspor, Investasi)
+- Navigasi langsung ke halaman detail per bidang
+- Animasi wave background dan desain modern
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📊 Dashboard
+- Ringkasan produksi per bidang dengan filter tahun (2020–2024)
+- Grafik interaktif (Bar, Line, Pie) menggunakan Recharts
+- Tabel data per kabupaten/kota dengan sorting & pagination
+- Export data ke Excel
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 📈 Data Statistik per Bidang
+- **Perikanan Tangkap:** Nelayan, Armada, Volume, Nilai, Komoditas  
+- **Perikanan Budidaya:** Volume, Nilai, Pembudidaya, Luas Area, Ikan Hias  
+- **KPP Garam:** Luas Lahan, Kelompok, Petambak, Volume Produksi  
+- **Pengolahan & Pemasaran:** AKI, Pemasaran, Olahan per Kab/Kota  
+- **Ekspor Perikanan:** Total Ekspor, Komoditas Utama, Negara Tujuan  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🗺️ Peta Interaktif (JatimMap)
+- GeoJSON batas wilayah 38 kabupaten/kota Jawa Timur
+- Color coding berdasarkan nilai produksi
+- Tooltip detail saat hover
+- Filter tahun & jenis perikanan
+
+### 🗂️ File Manager (Admin Only)
+- Upload file Excel dengan validasi otomatis
+- Template Excel per komponen
+- Delete file dengan cascade ke database
+- Audit log aktivitas
+
+### 🔐 Autentikasi & Keamanan
+- Login khusus admin dengan session management
+- Role-based access control
+- Protected routes untuk halaman admin
+
+### ⚙️ Pengaturan Akun (Admin)
+- Edit profil: Nama, Email, Telepon
+- Ubah password dengan validasi kompleksitas
+
+---
+
+## 🛠️ Teknologi
+
+| Komponen | Teknologi | Versi |
+|-----------|------------|-------|
+| Framework | React.js + TypeScript | 18.x |
+| Styling | Tailwind CSS | 3.x |
+| Charts | Recharts | 2.x |
+| Maps | Leaflet | 1.9.x |
+| Icons | Lucide React | Latest |
+| Build Tool | Vite | 4.x |
+| HTTP Client | Fetch API | - |
+| State Management | React Hooks | - |
+
+### Node.js Requirements
+- Node.js 18+
+- npm 9+ atau yarn 1.22+
+
+---
+
+## 📁 Struktur Proyek
+
+```bash
+samudera-frontend/
+├── public/
+│   ├── jatim_kabkota_geojson.json
+│   ├── bg5.jpg, bg2.jpg
+│   ├── logo.png
+│   └── favicon.ico
+│
+├── src/
+│   ├── pages/
+│   │   ├── LandingPage.tsx
+│   │   ├── Dashboard.tsx
+│   │   ├── Login.tsx
+│   │   ├── FileManager.tsx
+│   │   ├── PengaturanAkun.tsx
+│   │   └── DataStatistik/
+│   │       ├── PerikananTangkap.tsx
+│   │       ├── PerikananBudidaya.tsx
+│   │       ├── KPP.tsx
+│   │       ├── PengolahanPemasaran.tsx
+│   │       ├── EksporPerikanan.tsx
+│   │       └── types.ts
+│   │
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   ├── DashboardHeader.tsx
+│   │   ├── StatCard.tsx
+│   │   ├── StatPortraitCard.tsx
+│   │   └── JatimMap.tsx
+│   │
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── index.css
+│   └── vite-env.d.ts
+│
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+├── tailwind.config.js
+├── index.html
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Instalasi
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1️⃣ Install Node.js
+Download dari 👉 https://nodejs.org  
+
+Cek instalasi:
+
+```bash
+node -v
+npm -v
 ```
+
+---
+
+### 2️⃣ Clone Repository
+
+```bash
+git clone https://github.com/username/samudera-frontend.git
+cd samudera-frontend
+```
+
+---
+
+### 3️⃣ Install Dependencies
+
+```bash
+npm install
+# atau
+yarn install
+```
+
+---
+
+### 4️⃣ Jalankan Project
+
+```bash
+npm run dev
+```
+
+Buka di browser:
+```
+http://localhost:5173
+```
+
+---
+
+## 📌 Build Production
+
+```bash
+npm run build
+```
+
+Output ada di folder `dist/`.
+
+---
+
+## 🔗 Backend Connection
+
+Pastikan backend SAMUDERA berjalan di server lokal/XAMPP.  
+Edit endpoint API di file config jika perlu.
+
+---
+
+## 📞 Support
+
+Untuk bantuan teknis, hubungi tim IT DKP Jawa Timur.
+
+---
+
+**SAMUDERA Frontend**  
+*Lautnya Luas, Datanya Jelas – SAMUDERA, Solusi Cerdas.*
